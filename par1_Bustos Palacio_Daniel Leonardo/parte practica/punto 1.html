@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <title>Sistema Solar</title>
+      <div id="info">
+            <br />
+            Seleccionar con teclas s para rotar el sol ,y l para rotar la luna alrededor del sol <br />
+      </div>
+    <script src="js/three.min.js"></script> 
+    <script src="js/controls/OrbitControls.js"></script>  
+    <link rel="stylesheet" href="Css/Untitled-1.css" media="screen" >
+</head>
+<body>
+    <div id="info">Sistema Solar</div>
+        
+    <script>
+    var scene, aspect, camera, renderer;
+        var S;
+    var line;
+        init();     
+        animate();
+     
+
+	
+        function init(){ 
+           
+//Creacion
+            scene = new THREE.Scene();
+			aspect = window.innerWidth / window.innerHeight;
+			camera = new THREE.PerspectiveCamera( 45, aspect, 0.1, 1000);
+			renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+           controls = new THREE.OrbitControls(camera, renderer.domElement);
+            
+            var onKeyDown = function (event) {
+                    switch (event.keyCode) {
+                        case 83: // Y POSITIVE - UP ARROW
+                            S = true;
+                            break;
+                      case 76: // Y POSITIVE - UP ARROW
+                            L = true;
+                            break;
+                    }
+                };
+
+                var onKeyUp = function (event) {
+                    S = false;
+                    L=false;
+                };
+
+               document.addEventListener('keydown', onKeyDown, false);
+                document.addEventListener('keyup', onKeyUp, false);
+//CREAR LOS OBJETOS
+
+var Punto = new THREE.Geometry();
+var Material = new THREE.ParticleBasicMaterial({color: 0xFFFFFF});
+			var Vector = new THREE.Vector3(10,0,0);
+            Punto.vertices.push(Vector);
+			P1 = new THREE.ParticleSystem(Punto,Material);
+            P1.applyMatrix(new THREE.Matrix4().makeTranslation(10,10,0));
+			P2 = new THREE.ParticleSystem(Punto,Material);
+            P2.applyMatrix(new THREE.Matrix4().makeTranslation(40,10,0));
+			P3 = new THREE.ParticleSystem(Punto,Material);
+            P3.applyMatrix(new THREE.Matrix4().makeTranslation(40,40,0));
+			P4 = new THREE.ParticleSystem(Punto,Material);
+            P4.applyMatrix(new THREE.Matrix4().makeTranslation(10,40,0));
+            P1t = new THREE.ParticleSystem(Punto,Material);
+            P1t.applyMatrix(new THREE.Matrix4().makeTranslation(10,10,0));
+			P2t = new THREE.ParticleSystem(Punto,Material);
+            P2t.applyMatrix(new THREE.Matrix4().makeTranslation(40,10,0));
+			P3t = new THREE.ParticleSystem(Punto,Material);
+            P3t.applyMatrix(new THREE.Matrix4().makeTranslation(40,40,0));
+			P4t = new THREE.ParticleSystem(Punto,Material);
+            P4t.applyMatrix(new THREE.Matrix4().makeTranslation(10,40,0));
+            
+    var s = new THREE.Matrix4();
+		s.set( 	9, 0, 0, 0,
+				0, 1, 0, 0, 
+				0, 0, 1, 0,
+				0, 0, 0, 1);	
+				
+       P1t.applyMatrix(s);
+       P2t.applyMatrix(s);
+       P3t.applyMatrix(s);
+       P4t.applyMatrix(s);	
+		   
+               var r = new THREE.Matrix4();		//Crear la matriz de traslación
+		r.set( 	Math.cos(40), 0,Math.sin(40), 0,
+				0, 1, 0, 0, 
+				-Math.sin(40), 0, Math.cos(40), 0,
+				0, 0, 0, 1	);
+
+		 P1t.applyMatrix(r);
+       P2t.applyMatrix(r);
+       P3t.applyMatrix(r);
+       P4t.applyMatrix(r); 
+            
+            
+ 
+		              
+        var t = new THREE.Matrix4();		//Crear la matriz de traslación
+		t.set( 	1, 0, 0, 0,
+				0, 1, 0, 0, 
+				0, 0, 1, 9,
+				0, 0, 0, 1);
+       
+        P1t.applyMatrix(t);
+       P2t.applyMatrix(t);
+       P3t.applyMatrix(t);
+       P4t.applyMatrix(t);				//Aplicar la matriz de traslación al objeto	
+    			//Aplicar la matriz de traslación al objeto				
+		
+    
+            scene.add(P1);
+            scene.add(P2);
+            scene.add(P3);
+            scene.add(P4);
+            scene.add(P1t);
+            scene.add(P2t);
+            scene.add(P3t);
+            scene.add(P4t)
+             
+             console.info(P1t);
+           console.log(P2t);
+            console.log(P3t);
+            console.log(P4t);
+        
+			camera.position.x = 100,
+			camera.position.y = 0;	 
+		  	camera.position.z = 100;
+			
+		  	camera.lookAt( origin );
+    
+        }
+    function animate() {
+        render();
+       requestAnimationFrame( animate );
+           
+    }
+    
+    function render(){
+            
+	
+        renderer.render( scene, camera );
+        
+    }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <title>Sistema Solar</title>
+      <div id="info">
+            <br />
+            Seleccionar con teclas s para rotar el sol ,y l para rotar la luna alrededor del sol <br />
+      </div>
+    <script src="js/three.min.js"></script> 
+    <script src="js/controls/OrbitControls.js"></script>  
+    <link rel="stylesheet" href="Css/Untitled-1.css" media="screen" >
+</head>
+<body>
+    <div id="info">Sistema Solar</div>
+        
+    <script>
+    var scene, aspect, camera, renderer;
+	var startTime = Date.now();
+    var M,V,T,m,J,S,U,N,L;   
+    var sol,tierra;
+    var anguloY,anguloL;    
+        init();     
+        animate();
+     
+
+	
+        function init(){ 
+           
+//Creacion
+            scene = new THREE.Scene();
+			aspect = window.innerWidth / window.innerHeight;
+			camera = new THREE.PerspectiveCamera( 45, aspect, 0.1, 1000);
+			renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            
+            var onKeyDown = function (event) {
+                    switch (event.keyCode) {
+                        case 83: // Y POSITIVE - UP ARROW
+                            S = true;
+                            break;
+                      case 76: // Y POSITIVE - UP ARROW
+                            L = true;
+                            break;
+                    }
+                };
+
+                var onKeyUp = function (event) {
+                    S = false;
+                    L=false;
+                };
+
+               document.addEventListener('keydown', onKeyDown, false);
+                document.addEventListener('keyup', onKeyUp, false);
+			var Sol = new THREE.SphereGeometry( 3, 32, 32 );
+            var Mercurio = new THREE.SphereGeometry( 0.7, 32, 32 );
+            var Venus = new THREE.SphereGeometry( 1, 32, 32 );
+            var Tierra  = new THREE.SphereGeometry(1, 32, 32 );
+            var Marte = new THREE.SphereGeometry( 0.75, 32, 32 );
+            var Jupiter= new THREE.SphereGeometry(3, 32, 32 );
+            var Saturno = new THREE.SphereGeometry( 2, 32, 32 );
+            var Urano = new THREE.SphereGeometry( 1.5, 32, 32 );
+            var Neptuno = new THREE.SphereGeometry( 1.5, 32, 32 );
+            var Luna = new THREE.SphereGeometry( 0.5, 32, 32 );
+            //var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+            sol = new THREE.Mesh( Sol);
+            var venus = new THREE.Mesh( Venus);
+            var mercurio = new THREE.Mesh( Mercurio);
+            tierra = new THREE.Mesh( Tierra);
+            var marte = new THREE.Mesh( Marte);
+            var jupiter = new THREE.Mesh( Jupiter);
+            var urano = new THREE.Mesh( Urano);
+            var neptuno = new THREE.Mesh( Neptuno);
+            var saturno = new THREE.Mesh( Saturno);
+            var luna = new THREE.Mesh( Luna);
+            mercurio.translate.x = 5
+            scene.add( sol );
+				  
+       
+            
+            
+//CREAR LOS OBJETOS
+    mercurio.applyMatrix(new THREE.Matrix4().makeTranslation(5,0,0));   
+    venus.applyMatrix(new THREE.Matrix4().makeTranslation(10,0,6)); 
+    tierra.applyMatrix(new THREE.Matrix4().makeTranslation(15,0,-5));
+    marte.applyMatrix(new THREE.Matrix4().makeTranslation(20,0,4)); 
+    jupiter.applyMatrix(new THREE.Matrix4().makeTranslation(25,0,11)); 
+    urano.applyMatrix(new THREE.Matrix4().makeTranslation(37,0,7));         
+    neptuno.applyMatrix(new THREE.Matrix4().makeTranslation(42,0,9)); 
+    saturno.applyMatrix(new THREE.Matrix4().makeTranslation(32,0,4));
+    luna.applyMatrix(new THREE.Matrix4().makeTranslation(0,2,0));      
+    // gerarquia        
+        
+            sol.add(mercurio);   
+            sol.add(venus);
+            sol.add(tierra);
+            tierra.add(luna);
+            sol.add(marte);
+            sol.add(jupiter);
+            sol.add(saturno);
+            sol.add(urano);
+            sol.add(neptuno);
+            
+		   var rotationAngles = {
+               
+               anguloy:0,
+               angulol:0
+           };
+           var rotation = function () {
+               
+             anguloY= THREE.Math.degToRad(rotationAngles.anguloy);
+            anguloL= THREE.Math.degToRad(rotationAngles.angulol);
+           };
+              
+          rotation();     
+			camera.position.x = -1
+			camera.position.y = 5;	 
+		  	camera.position.z = 10;
+			
+		  	camera.lookAt( origin );
+    
+        }
+    function animate() {
+        render();
+       requestAnimationFrame( animate );
+           
+    }
+    
+    function render(){
+       var dtime = Date.now()-startTime;
+     /*  camera.position.x = 10*Math.cos(dtime/10000);
+        camera.position.z = 10*Math.sin(dtime/10000);
+        camera.lookAt( 0, 0, 0 );*/
+    if(S) {
+       anguloY+=0.1;    
+var SolRot = new THREE.Euler(0,anguloY, 0, 'XYZ');
+       sol.setRotationFromEuler(SolRot);
+        //sol.rotation.y +=0.1;
+		}
+    if(L){
+        anguloL+=0.1;
+         var LunaRot = new THREE.Euler(anguloL,0, 0, 'XYZ');
+       tierra.setRotationFromEuler(LunaRot);
+    }    
+        
+       
+        renderer.render( scene, camera );
+        
+    }
+
+    </script>
+</body>
+</html>

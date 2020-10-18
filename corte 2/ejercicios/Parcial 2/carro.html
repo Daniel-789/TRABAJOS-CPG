@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Piramide</title>
+    <style>
+      html, body { margin: 0; padding: 0; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <script src="js/three.js"></script>
+	<script src="js/controls/OrbitControls.js"></script>
+      <script src="js/csg.js"></script> 
+      <script src="js/THREE.CSG.js"></script> 
+       <script src="js/llanta.js"></script>
+      
+    <script>
+		var scene, aspect, camera, renderer, controls;
+        
+           var material_Rojo = new THREE.MeshStandardMaterial({Color:0xff0000,metalness: 0.5, roughness: 0.1});
+    var material_Negro = new THREE.MeshStandardMaterial({Color:0x000000,metalness: 0.5, roughness: 0.1});
+    var material_Violeta = new THREE.MeshStandardMaterial( { color: 0x05FDDB , metalness: 0.5, roughness: 0.1, opacity: 0.9 } );
+		init();
+		animate();
+		function init(){
+			//INICIALIZACIÓN
+	        scene = new THREE.Scene();
+	        aspect = window.innerWidth / window.innerHeight;
+	        camera = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000);
+	        renderer = new THREE.WebGLRenderer();
+	        renderer.setSize( window.innerWidth, window.innerHeight );
+	        document.body.appendChild( renderer.domElement );
+			controls = new THREE.OrbitControls( camera, renderer.domElement );
+            scene.background =new THREE.Color( 0xFFFFFF );
+
+			//ELEMENTOS COMUNES
+			var size = 40;
+			var arrowSize = 1;
+			var divisions = size;
+			var origin = new THREE.Vector3( 0, 0, 0 );
+			var x = new THREE.Vector3( 1, 0, 0 );
+			var y = new THREE.Vector3( 0, 1, 0 );
+		  	var z = new THREE.Vector3( 0, 0, 1 );
+		  	var color = new THREE.Color( 0x333333 );
+		  	var colorR = new THREE.Color( 0xAA3333 );
+		  	var colorG = new THREE.Color( 0x33AA33 );
+		  	var colorB = new THREE.Color( 0x333366 );
+            var light = new THREE.DirectionalLight(0xFFFFFF);
+            light.position.set(0, 10, 5);
+            scene.add(light);
+            var light2 = new THREE.DirectionalLight(0xFFFFFF);
+            light2.position.set(5, 10,0);
+            scene.add(light2);
+             var light3 = new THREE.DirectionalLight(0xFFFFF);
+            light3.position.set(5, -10,0);
+            scene.add(light3);
+		 
+			
+			//CREAR LAS GEOMETRÍAS
+	    var Manzanota = [];
+ 
+         Manzanota[0]  =  new THREE.Vector2(-14.3897472614293,-2.1311425965975);
+           Manzanota[1]  =  new THREE.Vector2(-17.337578374688,-1.1460918802621);
+            Manzanota[2]   =  new THREE.Vector2(-18.9926460530273,1.4911307069846);
+            Manzanota[3]   =  new THREE.Vector2(-17.6573419423912,2.7803898482884);
+            Manzanota[4]   = new THREE.Vector2 (-14.0157658217883,3.5803658352758);
+         Manzanota[5]     =  new THREE.Vector2(-4.9454266812217,6.099699731253);
+           Manzanota[6]   = new THREE.Vector2(0.1160162198676,6.2798075175414);
+           Manzanota[7]   =   new THREE.Vector2(6.83858174238,3.6091992962694);
+         Manzanota[8]      =  new THREE.Vector2(13.2704117960035,3.6650810948339);
+           Manzanota[9]   =  new THREE.Vector2(19.8165485918215,2.017714605069);
+           Manzanota[10]  = new THREE.Vector2(21.6093565690548,0.0567322428735);
+          Manzanota[11]  = new THREE.Vector2(20.3875375655837,-1.5593633776175);
+         Manzanota[12]   =  new THREE.Vector2(17.818087183654,-2.2311151114554);
+         Manzanota[13]   = new THREE.Vector2(17.7295727723164,-0.0070151319459);
+          Manzanota[14]  =  new THREE.Vector2(16.5008887439094,1.7838545871402);
+          Manzanota[15]   = new THREE.Vector2(13.9656421837535,2.3373239066108);
+          Manzanota[16]  =  new THREE.Vector2(11.5553725667039,1.4089237578213);
+         Manzanota[17]  =  new THREE.Vector2(10.5555570218537,-0.0372380124084);
+           Manzanota[18]   = new THREE.Vector2(10.1379257549678,-1.2749198597502);
+           
+             Manzanota[19] =  new THREE.Vector2(9.863364964386,-2.8399163660663);
+             Manzanota[20] = new THREE.Vector2(-6.8299311029857,-2.8124602870081);
+            Manzanota[21]  = new THREE.Vector2(-7.1594040516839,-1.2749198597502);
+              Manzanota[22] = new THREE.Vector2(-8.1478228977782,1.2510394136022);
+             Manzanota[23] = new THREE.Vector2(-11.1679915941777,2.2669143387547);
+            Manzanota[24]   = new THREE.Vector2(-14.1881602905772,1.0313907811367);
+              Manzanota[25] =   new THREE.Vector2(-14.7647379507989,-0.6983421995284);
+              Manzanota[26]  = new THREE.Vector2(-14.3897472614293,-2.1311425965975);
+   // ventana 
+   var ventana = [];
+          ventana  [0]  =    new THREE.Vector2(-4.859737692746,5.570850598049);
+          ventana  [1]  =    new THREE.Vector2(0.2395414212756,5.606262258563);
+          ventana  [2]  =    new THREE.Vector2(3.5328258490812,3.0920343620663);
+          ventana  [3]  =    new THREE.Vector2(-4.2223278034933,3.3045043251505);
+          ventana  [4]  =    new THREE.Vector2(-4.859737692746,5.570850598049);
+   //Ventana
+   var shap_ventana = new THREE.Shape();
+    shap_ventana.moveTo(-4.859737692746,5.570850598049);
+    shap_ventana.splineThru(ventana); 
+
+    var material2 = new THREE.LineBasicMaterial( { color : 0xff0000 } );
+    var resolution = 70;
+    var points = shap_ventana.getPoints( resolution );
+    var geometryVentana = new THREE.BufferGeometry().setFromPoints( points );
+    // Create the final object to add to the scene
+    var curveObjectVentana = new THREE.Line( geometryVentana, material2);
+//scene.add(curveObjectVentana);
+    var extrudeSettings1 = {
+      steps: 6,
+      amount: 10,
+      bevelEnabled: false,
+      };
+      
+      var geometryFinalVentana = new THREE.ExtrudeGeometry( shap_ventana, extrudeSettings1 );
+      //scene.add(geometryFinalVentana);
+      var RecorteVentana = new THREE.Mesh( geometryFinalVentana, material_Violeta ) ;
+      RecorteVentana.applyMatrix( new THREE.Matrix4().makeTranslation(0.5,0,-5,0));
+     // scene.add(RecorteVentana);
+ 
+   //Carro 
+    var shap_Manzana = new THREE.Shape();
+    shap_Manzana.moveTo(-14.3897472614293,-2.1311425965975);
+    shap_Manzana.splineThru(Manzanota);
+    
+    var material1 = new THREE.LineBasicMaterial( { color : 0xff0000 } );
+    var resolution = 70;
+    var points = shap_Manzana.getPoints( resolution );
+    var geometry1 = new THREE.BufferGeometry().setFromPoints( points );
+    // Create the final object to add to the scene
+    var curveObject1 = new THREE.Line( geometry1, material1 );
+//scene.add(curveObject1);
+    //EXTRUDE
+    var material_Verde = new THREE.MeshStandardMaterial({Color:0x00ff00,metalness: 0.5, roughness: 0.5});
+    var extrudeSettings1 = {
+    steps: 6,
+    amount: 10,
+    bevelEnabled: false,
+    };
+    
+    var geometryExt1 = new THREE.ExtrudeGeometry( shap_Manzana, extrudeSettings1 );
+    var materialExt1= new THREE.MeshStandardMaterial( { 
+    color: 0x00ff00, 
+    metalness: 0.5, 
+    roughness: 0.1,
+    opacity: 0.75,
+    transparent: true			
+    } );
+    
+    var Manz = new THREE.Mesh( geometryExt1, material_Rojo ) ;
+    var scr = 0.6;
+var sm = new THREE.Matrix4();
+  sm.set( 	  scr, 0, 0, 0,
+              0, scr, 0, 0, 
+              0, 0, scr, 0,
+              0, 0, 0, 1 );
+         
+//Manz.applyMatrix(sm);
+Manz.applyMatrix( new THREE.Matrix4().makeTranslation(0,0,-5,0));
+//scene.add( Manz );
+//
+var C1 = THREE.CSG.fromMesh(Manz);
+var R1 = THREE.CSG.fromMesh(RecorteVentana);
+//
+var resul = C1.subtract(R1);
+//
+var CarroFinal = THREE.CSG.toMesh(resul);
+CarroFinal.material=material_Violeta;
+//Mostrar
+var geometry_PuntoCentro = new THREE.SphereGeometry( 0.1, 32, 32 );
+var PuntoCentral = new THREE.Mesh(geometry_PuntoCentro,material_Violeta);
+PuntoCentral.applyMatrix( new THREE.Matrix4().makeTranslation(0,0,0,0));
+PuntoCentral.add(CarroFinal);
+           
+ scene.add(PuntoCentral);
+            
+			camera.position.x = 2;
+			camera.position.y = 2;
+		  	camera.position.z = 5;
+			camera.lookAt( origin );
+            
+		}
+		function animate(){
+			requestAnimationFrame( animate );
+			controls.update();
+			render();
+		}
+  	function render(){
+			renderer.render( scene, camera );
+		}
+		
+    </script>
+  </body>
+</html>

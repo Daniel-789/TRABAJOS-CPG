@@ -1,0 +1,96 @@
+#cuadro{ 
+    width: 40px;
+    height: 40px; 
+    background-image:url(./imagenes%20menu/roca.png);
+    position: absolute; 
+    left: 765px; 
+    top: 600px; }
+
+
+
+#cuadrogrande{
+     position: absolute; 
+     outline: 4px solid grey;
+    top: 589px; 
+    left: 750px; 
+    width: 470px; 
+    height: 60px;
+}
+
+
+#menu{
+     position: absolute; 
+    background-image:url(./imagenes%20menu/2.png);
+    top: 600px; 
+    left: 815px; 
+    width: 40px; 
+    height: 40px;
+}
+
+#block3{
+    position: absolute; 
+    background-image: url(./imagenes%20menu/diamante.png);
+    top: 600px; 
+    left: 865px; 
+    width: 40px; 
+    height: 40px;
+}
+
+
+#block4{
+       position: absolute; 
+    background-image: url(./imagenes%20menu/l.png);
+    top: 600px; 
+    left: 915px; 
+    width: 40px; 
+    height: 40px; 
+}
+
+#block5{
+    position: absolute; 
+    background-image: url(./imagenes%20menu/tierra.png);
+    top: 600px; 
+    left: 965px; 
+    width: 40px; 
+    height: 40px; 
+}
+#block6{
+    position: absolute; 
+    background-image: url(./imagenes%20menu/nieve.png);
+    top: 600px; 
+    left: 1015px; 
+    width: 40px; 
+    height: 40px; 
+}
+#block7{
+    position: absolute; 
+    background-image: url(./imagenes%20menu/Arena.png);
+    top: 600px; 
+    left: 1065px; 
+    width: 40px; 
+    height: 40px; 
+}
+#block8{
+    position: absolute; 
+    background-image: url(./imagenes%20menu/Cofre.png);
+    top: 600px; 
+    left: 1115px; 
+    width: 40px; 
+    height: 40px; 
+}
+#block9{
+    position: absolute; 
+    background-image: url(./imagenes%20menu/Antorcha.png);
+    top: 600px; 
+    left: 1165px; 
+    width: 40px; 
+    height: 40px; 
+}
+#barrera{ 
+    position: absolute; 
+    top: 600px; 
+    left: 100px; 
+    width: 40px; 
+    height: 40px;
+    outline: 5px solid red;
+}
